@@ -25,7 +25,20 @@ function addNewPost($newPost)
   $posts = getPosts();
   $posts[] = $newPost;
 
-  $postString = serialize($posts);
+  saveToFile($posts);
+}
 
+function deletePost($id)
+{
+  $posts = getPosts();
+  if (isset($posts[$id])) {
+    unset($posts[$id]);
+
+    saveToFile($posts);
+  }
+}
+
+function saveToFile($posts) {
+  $postString = serialize($posts);
   file_put_contents('./models/posts.txt', $postString);
 }

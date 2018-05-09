@@ -1,5 +1,6 @@
 <?php
 
+  session_start();
   require_once './models/post.php';
 
   // if (isset($_GET['id'])) {

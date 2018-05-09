@@ -20,9 +20,23 @@
     <div class="container">
       <header class="blog-header py-3">
         <div class="row flex-nowrap justify-content-between align-items-center">
-          <div class="col-4 pt-1">
-            <a class="text-muted" href="/add_post.php">Add post</a>
-          </div>
+          <?php if (isset($_SESSION['user'])) {?>
+            <div class="col-4 pt-1">
+              Hello, <?php echo $_SESSION['user'] ?>
+              <form method="POST" action="/logout.php">
+                <input type="submit" class="link" value="Log out">
+              </form>
+            </div>
+          <?php } else { ?>
+            <div class="col-4 pt-1">
+              <a class="text-muted" href="/login.php">Login</a>
+            </div>
+          <?php } ?>
+          <?php if (isset($_SESSION['user'])) {?>
+            <div class="col-4 pt-1">
+              <a class="text-muted" href="/add_post.php">Add post</a>
+            </div>
+          <?php } ?>
           <div class="col-4 text-center">
             <a class="blog-header-logo text-dark" href="#">Large</a>
           </div>
@@ -66,6 +80,14 @@
               </a>
               <p class="blog-post-meta"><?= $post['meta'] ?></p>
               <?php echo $post['text']; ?>
+              <?php if (isset($_SESSION['user'])) {?>
+                <div>
+                  <form method="POST" action="/delete_post.php">
+                    <input type="hidden" name="id" value="<?php echo $postNumber; ?>">
+                    <input type="submit" value="Delete post">
+                  </form>
+                </div>
+              <?php  } ?>
             </div><!-- /.blog-post -->
            <?php } ?>
 
