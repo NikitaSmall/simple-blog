@@ -1,7 +1,9 @@
 <?php
 
-  session_start();
+session_start();
 
-  session_destroy();
+if (isset($_POST['login'])) {
+  unset($_SESSION['user']);
+}
 
-  header('location: /');
+header('location: /');

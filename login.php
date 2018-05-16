@@ -5,13 +5,14 @@ session_start();
 require_once './models/user.php';
 
 if (empty($_POST)) {
-  require_once './templates/login.php';
+  require_once './views/login.php';
   exit();
 }
 
-if (checkUser($_POST['login'], $_POST['password'])) {
-  $_SESSION['user'] = 'admin';
-  header('location: /');
-} else {
-  header('location: /login.php');
+$user = new User();
+
+if ($user->login($_POST['login'], $_POST['password'])) {
+  $_SESSION['user'] = $_POST['login'];
 }
+
+header('location: /');
