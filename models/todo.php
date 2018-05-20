@@ -1,46 +1,29 @@
 <?php
 
-class Todo
-{
-  const todoFilePath = './models/todo.txt';
+require_once './config.php';
 
-  public function getTodos()
+class TodoModel {
+  protected $conn;
+
+  private $createStmt;
+
+  public function __construct()
   {
-    try {
-      $todoString = file_get_contents(self::todoFilePath);
-      return unserialize($todoString);
-    } catch (\Exception $e) {
-      return [];
-    }
+    $this->conn = new PDO("mysql:host=" . Config::DB_HOST .";dbname=" . Config::DB_NAME, Config::DB_USER, Config::DB_PASS);
+    $this->conn->exec("set names utf8");
+
+    $this->createStmt = $this->conn->prepare('INSERT INTO todos (description) VALUES (?)');
   }
 
-  public function changeStatus($index)
+  public function getAll()
   {
-    $todos = $this->getTodos();
-    $todos[$index]['status'] = !$todos[$index]['status'];
-    $this->writeTodos($todos);
+    $res = $this->conn->query("SELECT * FROM todos");
+    return $res->fetchAll(PDO::FETCH_ASSOC);
   }
 
-  public function save($text)
+  public function create($desc)
   {
-    $todo = [
-      'text' => $text,
-      'status' => false
-    ];
-
-    $this->saveTodo($todo);
-  }
-
-  private function saveTodo($todo)
-  {
-    $todos = $this->getTodos();
-    $todos[] = $todo;
-    $this->writeTodos($todos);
-  }
-
-  private function writeTodos($todos)
-  {
-    $todoString = serialize($todos);
-    file_put_contents(self::todoFilePath, $todoString);
+    // $stmt = $this->conn->prepare('INSERT INTO todos (description) VALUES (?)');
+    $this->createStmt->execute([$desc]);
   }
 }
