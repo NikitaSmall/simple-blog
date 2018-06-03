@@ -3,7 +3,7 @@
     <title>Login</title>
   </head>
   <body>
-    <form method="POST" action="/main.php">
+    <form method="POST" action="/login.php">
       <input type="email" name="email">
       <input type="password" name="password">
 

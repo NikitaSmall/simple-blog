@@ -1,19 +1,10 @@
 <?php
 
-require_once './config.php';
+require_once './models/base_model.php';
 
-class UserModel
+class UserModel extends BaseModel
 {
-  protected $conn;
-
   const CHARS = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-  public function __construct()
-  {
-    $this->conn = new PDO("mysql:host=" . Config::DB_HOST . ";dbname=" . Config::DB_NAME,
-                          Config::DB_USER, Config::DB_PASS);
-    $this->conn->exec("set names utf8");
-  }
 
   public function create($email, $password)
   {

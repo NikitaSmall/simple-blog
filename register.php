@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require_once './models/user.php';
 
 if (empty($_POST)) {
@@ -13,4 +15,5 @@ if ($userModel->getUserByEmail($_POST['email'])) {
   echo 'user exists!';
 } else {
   $userModel->create($_POST['email'], $_POST['password']);
+  header('location: /');
 }
