@@ -2,7 +2,7 @@
 
 require_once './config.php';
 
-class BaseModel
+class Connection
 {
   protected $conn;
 
@@ -11,5 +11,10 @@ class BaseModel
     $this->conn = new PDO("mysql:host=" . Config::DB_HOST . ";dbname=" . Config::DB_NAME,
                           Config::DB_USER, Config::DB_PASS);
     $this->conn->exec("set names utf8");
+  }
+
+  public function getConnection()
+  {
+    return $this->conn;
   }
 }

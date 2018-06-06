@@ -2,10 +2,10 @@
 
   session_start();
 
-  require_once './models/post.php';
+  require_once './repos/post.php';
 
-  $postModel = new PostModel();
+  // $postModel = new PostModel();
 
-  $posts = $postModel->getAll();
+  $posts = PostRepo::getAll();
 
   require_once './template/index.php';

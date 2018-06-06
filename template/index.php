@@ -20,19 +20,21 @@
       <?php foreach ($posts as $post) { ?>
         <div>
           <h2>
-            <?php echo $post['title']; ?>
+            <?php echo $post->title; ?>
           </h2>
           <h4>
-            <?php echo $post['user_email']; ?>
+            <?php echo $post->user_email; ?>
             -
-            <?php echo $post['date']; ?>
+            <?php echo $post->date; ?>
+            -
+            comments number: <?php echo $post->comments_number; ?>
           </h4>
           <div>
-            Read the post <a href="/post.php?id=<?php echo $post['id']; ?>">here</a>
+            Read the post <a href="/post.php?id=<?php echo $post->id; ?>">here</a>
           </div>
           <h5>
             <form method="post" action="/post_delete.php">
-              <input type="hidden" name="id" value="<?php echo $post['id']; ?>">
+              <input type="hidden" name="id" value="<?php echo $post->id; ?>">
               <input type="submit" value="delete post!">
             </form>
           </h5>

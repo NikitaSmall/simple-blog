@@ -11,7 +11,11 @@ if (!isset($_SESSION['user_id'])) {
 
 if (!empty($_POST)) {
   $postModel = new PostModel();
-  $postModel->delete($_POST['id']);
+
+  $post = $postModel->getById($_POST['id']);
+  if ($post && $post['user_id'] == $_SESSION['user_id']) {
+    $postModel->delete($_POST['id']);
+  }
 }
 
 header('location: /');
