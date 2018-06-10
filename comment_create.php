@@ -1,6 +1,6 @@
 <?php
 
-  require_once './models/comment.php';
+  require_once './repos/comment.php';
 
   session_start();
 
@@ -10,8 +10,7 @@
   }
 
   if (!empty($_POST)) {
-    $commentModel = new CommentModel();
-    $commentModel->create($_POST['body'], $_POST['post_id'], $_SESSION['user_id']);
+    CommentRepo::create($_POST['body'], $_POST['post_id'], $_SESSION['user_id']);
 
     header('location: /post.php?id=' . $_POST['post_id']);
   }

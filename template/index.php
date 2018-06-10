@@ -9,7 +9,7 @@
           <input type="hidden" name="user_id" value="<?php $_SESSION['user_id']; ?>">
           <input type="submit" value="Logout!">
         </form>
-        <a href="/post_create.php">Create post</a>
+        <a href="/index.php?r=/post/create">Create post</a>
       <?php } else { ?>
         <a href="/register.php">Register</a>
         <a href="/login.php">Login</a>
@@ -25,15 +25,19 @@
           <h4>
             <?php echo $post->user_email; ?>
             -
-            <?php echo $post->date; ?>
+            <?php echo $post->date(); ?>
             -
             comments number: <?php echo $post->comments_number; ?>
           </h4>
           <div>
-            Read the post <a href="/post.php?id=<?php echo $post->id; ?>">here</a>
+            Preview:
+            <div>
+              <?php echo $post->preview(); ?>
+            </div>
+            Read the full post <a href="/index.php?r=/post&id=<?php echo $post->id; ?>">here</a>
           </div>
           <h5>
-            <form method="post" action="/post_delete.php">
+            <form method="post" action="/index.php?r=/post/delete">
               <input type="hidden" name="id" value="<?php echo $post->id; ?>">
               <input type="submit" value="delete post!">
             </form>
