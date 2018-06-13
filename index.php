@@ -1,15 +1,14 @@
 <?php
 
-  session_start();
+require_once './config/config.php';
 
-  require_once './repos/post.php';
-  require_once './repos/comment.php';
+session_start();
 
-  require_once './controllers/post.php';
+require_once './router.php';
+require_once './controllers/main_controller.php';
 
-  require_once './router.php';
+$router = new Router();
 
-  $route = (isset($_GET['r'])) ? $_GET['r'] : '/';
+$router->register('GET', '/', 'MainController::index');
 
-  $router = new Router($route);
-  $router->serve();
+$router->serve();
