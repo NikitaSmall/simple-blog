@@ -7,7 +7,7 @@
 </div>
 
 <div class="row">
-  <?php for($i = 0; $i < 5; $i++) { require './templates/partials/product_card.php'; } ?>
+  <?php foreach ($products as $product) { require './templates/partials/product_card.php'; } ?>
 </div>
 
 <?php require './templates/partials/footer.php'; ?>
