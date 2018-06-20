@@ -5,7 +5,9 @@ class ProductRepo
   public static function getAll()
   {
     $res = self::conn()
-      ->query('SELECT p.id, p.title, p.description, (SELECT image FROM options WHERE product_id = p.id ORDER BY id ASC LIMIT 1) as image
+      ->query('SELECT p.id, p.title, p.description,
+        (SELECT image FROM options WHERE product_id = p.id ORDER BY id ASC LIMIT 1) as image,
+        (SELECT id FROM options WHERE product_id = p.id ORDER BY id ASC LIMIT 1) as option_id
 FROM products as p');
 
     return $res->fetchAll(PDO::FETCH_CLASS, 'Product');

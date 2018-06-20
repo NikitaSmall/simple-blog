@@ -22,6 +22,25 @@
           <li class="nav-item">
             <a class="nav-link" href="#">Features</a>
           </li>
+          <?php if (isset($_SESSION[BaseController::$userSessionField])) { ?>
+            <li>
+              <div>
+                Hello, <?php echo $_SESSION[BaseController::$userSessionField]->username; ?>
+              </div>
+            </li>
+            <li class="nav-item">
+              <form action="/users/logout" method="POST">
+                <input type="submit" value="logout" class="btn btn-warning">
+              </form>
+            </li>
+          <?php } else { ?>
+            <li class="nav-item">
+              <a href="/users/register" class="btn btn-primary">Register</a>
+            </li>
+            <li class="nav-item">
+              <a href="/users/login" class="btn btn-info">Login</a>
+            </li>
+          <?php } ?>
         </ul>
       </div>
     </nav>
