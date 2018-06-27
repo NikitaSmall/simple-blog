@@ -33,6 +33,7 @@
   </div>
 
   <div>
+    <a href="/orders/new">Submit this order</a>
     <form action="/cart/destroy" method="POST">
       <button class="btn btn-danger">Empty the cart!!!</button>
     </form>

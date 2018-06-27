@@ -7,10 +7,13 @@ require_once './config/conn.php';
 require_once './models/product.php';
 require_once './models/option.php';
 require_once './models/user.php';
+require_once './models/order.php';
+require_once './models/line_item.php';
 
 require_once './repos/product_repo.php';
 require_once './repos/option_repo.php';
 require_once './repos/user_repo.php';
+require_once './repos/order_repo.php';
 
 session_start();
 
@@ -25,8 +28,11 @@ require_once './controllers/cart_controller.php';
 
 require_once './controllers/main_controller.php';
 require_once './controllers/user_controller.php';
+require_once './controllers/order_controller.php';
+
 require_once './controllers/admin/product_controller.php';
 require_once './controllers/admin/option_controller.php';
+require_once './controllers/admin/admin_order_controller.php';
 
 $router = new Router();
 
@@ -41,11 +47,18 @@ $router->register('POST', '/cart/add', 'CartController::add');
 $router->register('POST', '/cart/substract', 'CartController::substract');
 $router->register('POST', '/cart/destroy', 'CartController::destroy');
 
+$router->register('GET', '/orders/new', 'OrderController::new');
+$router->register('GET', '/orders/complete', 'OrderController::confirmation');
+$router->register('POST', '/orders', 'OrderController::create');
+
 $router->register('GET', '/', 'MainController::index');
 $router->register('GET', '/admin/products/create', 'ProductController::createForm');
 $router->register('POST', '/admin/products', 'ProductController::create');
 
 $router->register('GET', '/admin/options/create', 'OptionController::createForm');
 $router->register('POST', '/admin/options', 'OptionController::create');
+
+$router->register('GET', '/admin/orders', 'AdminOrderController::getOrders');
+$router->register('GET', '/admin/orders/details', 'AdminOrderController::orderDetails');
 
 $router->serve();

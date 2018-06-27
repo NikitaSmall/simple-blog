@@ -22,7 +22,7 @@
           <li class="nav-item">
             <a class="nav-link" href="#">Features</a>
           </li>
-          <?php if (isset($_SESSION[BaseController::$userSessionField])) { ?>
+          <?php if (!empty($_SESSION[BaseController::$userSessionField])) { ?>
             <li>
               <div>
                 Hello, <?php echo $_SESSION[BaseController::$userSessionField]->username; ?>

@@ -15,4 +15,16 @@ class BaseController
       $_SESSION[$field] = [];
     }
   }
+
+  protected static function getOptionsFromCart()
+  {
+    $ids = array_keys($_SESSION['cart']);
+    $options = OptionRepo::getOptionsForCart($ids);
+
+    foreach ($options as $option) {
+      $option->amount = $_SESSION['cart'][$option->id];
+    }
+
+    return $options;
+  }
 }

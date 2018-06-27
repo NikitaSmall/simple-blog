@@ -6,7 +6,7 @@
 
     <form action="/cart/add" method="POST">
       <input type="hidden" name="id" value="<?php echo $product->option_id; ?>">
-      <button class="btn btn-primary">Add to cart!</button>
+      <button data-id="<?php echo $product->option_id; ?>" class="btn btn-primary add-to-cart">Add to cart!</button>
     </form>
   </div>
 </div>

@@ -4,12 +4,7 @@ class CartController extends BaseController
 {
   public static function index()
   {
-    $ids = array_keys($_SESSION['cart']);
-    $options = OptionRepo::getOptionsForCart($ids);
-
-    foreach ($options as $option) {
-      $option->amount = $_SESSION['cart'][$option->id];
-    }
+    $options = self::getOptionsFromCart();
     require_once './templates/cart.php';
   }
 
