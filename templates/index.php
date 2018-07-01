@@ -4,6 +4,25 @@
   <div class="col-md-auto">
     Hello world!
   </div>
+
+  <div>
+    <b>Most popular items:</b>
+    <table class="table">
+      <?php foreach ($options as $option) { ?>
+        <tr>
+          <td>
+            <?= $option->product_id ?>
+          </td>
+          <td>
+            <?= $option->title ?>
+          </td>
+          <td>
+            <?= $option->total_b ?>
+          </td>
+        </tr>
+      <?php } ?>
+    </table>
+  </div>
 </div>
 
 <div class="row">
@@ -25,7 +44,7 @@
         }
       }).done(function(res) {
         $('#cart-alert').addClass('show');
-      });      
+      });
     });
 
     $('#cart-alert button').click(function() {

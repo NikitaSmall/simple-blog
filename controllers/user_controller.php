@@ -19,6 +19,7 @@ class UserController extends BaseController
     if ($user) {
       $_SESSION[self::$userSessionField] = $user;
 
+      Flash::add('You successfully entered The Shop!');
       self::redirect('/');
     } else {
       self::redirect('/users/login');

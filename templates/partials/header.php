@@ -46,3 +46,8 @@
     </nav>
 
     <div class="container">
+      <?php foreach (Flash::get() as $message) { ?>
+        <div class="alert alert-primary" role="alert">
+          <?php echo $message; ?>
+        </div>
+      <?php } ?>

@@ -4,7 +4,7 @@ class BaseController
 {
   public static $userSessionField = 'user';
 
-  protected static function redirect($url)
+  public static function redirect($url)
   {
     header("location: $url");
   }

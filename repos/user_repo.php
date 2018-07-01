@@ -2,13 +2,23 @@
 
 class UserRepo
 {
-  public static function create($username, $password)
+  public static function registerUserAtOrder($email)
   {
-    $stmt = self::conn()->prepare('INSERT INTO users (username, password)
-                                   VALUES (?, ?)');
+    if ($user = self::checkUserByName($email)) {
+      return $user;
+    }
+
+    self::create($email, self::randPass(), User::ORDER);
+    return self::checkUserByName($email);
+  }
+
+  public static function create($username, $password, $regType = User::MANUAL)
+  {
+    $stmt = self::conn()->prepare('INSERT INTO users (username, password, registration_type)
+                                   VALUES (?, ?, ?)');
 
     $hashedPass = md5($password);
-    $stmt->execute([$username, $hashedPass]);
+    $stmt->execute([$username, $hashedPass, $regType]);
   }
 
   public static function checkUserByName($username) {
@@ -48,6 +58,11 @@ class UserRepo
     } else {
       return $user;
     }
+  }
+
+  protected static function randPass()
+  {
+    return Utils::generateSalt();
   }
 
   protected static function conn()

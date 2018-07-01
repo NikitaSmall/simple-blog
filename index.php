@@ -3,6 +3,7 @@
 require_once './config/config.php';
 require_once './config/utils.php';
 require_once './config/conn.php';
+require_once './config/flash.php';
 
 require_once './models/product.php';
 require_once './models/option.php';
@@ -18,11 +19,13 @@ require_once './repos/order_repo.php';
 session_start();
 
 require_once './router.php';
+require_once './acl.php';
 
 require_once './controllers/base_controller.php';
 
 BaseController::ensureSession('user');
 BaseController::ensureSession('cart');
+BaseController::ensureSession('flash');
 
 require_once './controllers/cart_controller.php';
 
@@ -35,6 +38,9 @@ require_once './controllers/admin/option_controller.php';
 require_once './controllers/admin/admin_order_controller.php';
 
 $router = new Router();
+$acl = new ACL($router->currentRoute(), $router->currentMethod());
+
+$acl->check();
 
 $router->register('GET', '/users/login', 'UserController::loginForm');
 $router->register('POST', '/users/login', 'UserController::login');

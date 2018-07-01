@@ -2,6 +2,19 @@
 
 class OptionRepo
 {
+  public static function mostPopularOptions()
+  {
+    $query = 'SELECT op.product_id as product_id, op.id as option_id, op.title, SUM(li.amount) as total_b
+              FROM orders as o
+              JOIN line_items as li ON o.id = li.order_id
+              JOIN options as op ON op.id = li.option_id
+              GROUP BY li.option_id
+              ORDER BY total_b DESC LIMIT 5';
+
+    $res = self::conn()->query($query);
+    return $res->fetchAll(PDO::FETCH_CLASS, 'Option');
+  }
+
   public static function getOptionsForCart($ids)
   {
     $len = count($ids);
